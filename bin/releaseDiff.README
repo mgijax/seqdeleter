@@ -1,0 +1,50 @@
+See also system docs.
+
+Before processing incremental delete files of sequences
+deleted from a provider (e. g. GenBank, RefSeq)
+since the last release, for the first time, 
+we must first do a diff between a given release
+and what is in MGI to determine any sequences 
+deleted from the provider prior to the current set of
+incremental delete files. 
+
+This must be done upon a release 
+AND before any non-cum files to be in the NEXT
+release are processed.
+
+To do this we must 
+1) fetch the release index file
+from  a provider and pull out the seqids without
+the version
+e.g. refseq:
+cat /data/downloads/ftp.ncbi.nih.gov/refseq_relindex/RefSeq-release9.catalog | cut -f3 | cut -d. -f1 > RefSeq-release9.catalog.seqid
+
+e.g. genbank:
+gunzip -c /data/downloads/ftp.ncbi.nih.gov/genbank_relindex/gbacc.idx.gz | cut -f 4 > gbacc.idx.seqid
+
+2) query MGI for the set of seqids for each provider in MGI
+Use the script seqIdQuery.sql
+e.g. genbank:
+seqIdQuery.sql PROD_MGI mgd 9 genbank
+e.g. refseq:
+seqIdQuery.sql PROD_MGI mgd 27 refseq
+
+The  files genbank_seqIdQuery.sql.rpt and refseq_seqIdQuery.sql.rpt are
+created. These files must have their header and footer removed as well as 
+a leading and trailing spaces. You can do this with vi for refseq, but genbank is too large
+
+Do this to remove leading/trailing whitespace, header and footer:
+awk '{sub(/^[ \t]+/, ""); print}' gb_seqIdQuery.sql.rpt > gb_seqIdQuery.sql.rpt.leading
+awk '{sub(/[ \t]+$/, "");print}' gb_seqIdQuery.sql.rpt.leading > gb_seqIdQuery.sql.rpt.trailing
+sed -n '<firstLineToSave>,<lastLineToSave>p' gb_seqIdQuery.sql.rpt.trailing > gb_seqIdQuery.sql.rpt.new
+mv gb_seqIdQuery.sql.rpt.new gb_seqIdQuery.sql.rpt
+
+3) run createReleaseDeletes.sh to create a diff file of sequences
+   in MGI that are not in the release index file
+e.g. genbank:
+createReleaseDeletes.sh gbacc.idx.seqid gb_seqIdQuery.sql.rpt genbank
+e.g. refseq
+createReleaseDeletes.sh RefSeq-release9.catalog.seqid refseq_seqIdQuery.sql.rpt refseq
+
+4) Use the output of above as input to the seqdeleter
+configured to use the generic org.jax.mgi.shr.dla.input.SeqIdInterpreter
