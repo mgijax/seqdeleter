@@ -9,7 +9,7 @@
 #
 #  Purpose:  This script controls the execution of the seqdeleter
 #
-  Usage="seqdeleter.sh config_file"
+  Usage="usage: seqdeleter.sh config_file"
 #     e.g. gbseqdeleter.config or refseqdeleter.config
 #
 #  Env Vars:
