@@ -7,9 +7,13 @@
 ###########################################################################
 # The interpreter class for  refseq deletes
 SEQ_INTERPRETER=org.jax.mgi.shr.dla.input.refseq.RefSeqDeleterInterpreter
+# for processing single seqid per line file (initial diff)
+#SEQ_INTERPRETER=org.jax.mgi.shr.dla.input.SeqIdInterpreter
 
 # Full path to dir containing input file(s)
 INPUTDIR=/data/downloads/ftp.ncbi.nih.gov/refseq/refseq_deletes
+# initial diff
+#INPUTDIR=/home/sc/jsam/seqdeleter/bin
 
 # Full path the the logs, reports, and archive directories
 FILEDIR=/data/loads/genbank/refseqdeleter
@@ -22,6 +26,8 @@ APP_CAT_METHOD=/usr/bin/cat
 
 # full path to input file(s)
 APP_INFILES=${INPUTDIR}/release*.removed-records
+# initial diff
+#APP_INFILES=${INPUTDIR}/refseq_MGI_todelete.txt
 
 export APP_CAT_METHOD APP_INFILES
 

@@ -7,9 +7,13 @@
 ###########################################################################
 # The interpreter class for genbank deletes
 SEQ_INTERPRETER=org.jax.mgi.shr.dla.input.genbank.GBSeqDeleterInterpreter
+# for single line seqid processing (processing initial diff)
+#SEQ_INTERPRETER=org.jax.mgi.shr.dla.input.SeqIdInterpreter
 
 # Full path to dir containing input file(s)
 INPUTDIR=/data/downloads/ftp.ncbi.nih.gov/genbank/gb_deletes
+# for processing initial diff
+#INPUTDIR=/home/sc/jsam/seqdeleter/bin
 
 # Full path the the logs, reports, and archive directories
 FILEDIR=/data/loads/genbank/gbseqdeleter
@@ -18,10 +22,13 @@ export SEQ_INTERPRETER INPUTDIR FILEDIR
 
 # how files are piped to the application
 APP_CAT_METHOD="/usr/local/bin/gunzip -c"
+# for processing initial diff
 #APP_CAT_METHOD=/usr/bin/cat
 
 # full path to input file(s)
 APP_INFILES=${INPUTDIR}/gbdel.txt.gz
+# for processing initial diff
+#APP_INFILES=${INPUTDIR}/genbank_MGI_todelete.txt
 
 export APP_CAT_METHOD APP_INFILES
 
