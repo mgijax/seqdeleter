@@ -6,7 +6,7 @@
 #  gbseqdeleter
 ###########################################################################
 # The interpreter class for genbank deletes
-SEQ_INTERPRETER=org.jax.mgi.app.seqdeleter.GBSeqDeleterInterpreter
+SEQ_INTERPRETER=org.jax.mgi.shr.dla.input.genbank.GBSeqDeleterInterpreter
 
 # Full path to dir containing input file(s)
 INPUTDIR=/data/downloads/ftp.ncbi.nih.gov/genbank/gb_deletes
