@@ -14,7 +14,7 @@
 ###########################################################################
 
 #  Installation directory for seqdeleter
-INSTALLDIR=${USRLOCALMGI}/seqdeleter
+INSTALLDIR=${USRLOCALMGI}/dataload/seqdeleter
 
 #  Installation directory for the QC report product
 APP_QCRPTDIR=${QCRPTDIR}
