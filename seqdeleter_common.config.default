@@ -46,6 +46,7 @@ export MGD_DBSERVER MGD_DBURL MGD_DBNAME
 export MGD_DBUSER MGD_DBPASSWORDFILE MGD_DBSCHEMADIR
 
 # RADAR Connection parameters 
+# Not using radar at this time, but DLA requires it be configured
 RADAR_DBSERVER=PROD_MGI
 #RADAR_DBSERVER=DEV1_MGI
 
@@ -74,9 +75,9 @@ export RADAR_DBPASSWORDFILE RADAR_DBSCHEMADIR
 # need memory from the parent process (2G max given to a process by the op sys)
 JAVARUNTIMEOPTS="-Xms1500m -Xmx1500m"
 
-JAVA_LIB=${JAVAPATH}/lib_java_dla/classes:${JAVAPATH}/lib_java_core/classes:${JAVAPATH}/lib_java_dbsmgd/classes:${JAVAPATH}/lib_java_dbsrdr/classes
+JAVA_LIB=${JAVAPATH}/lib_java_dla/dla.jar:${JAVAPATH}/lib_java_core/core.jar:${JAVAPATH}/lib_java_dbsmgd/dbsmgd.jar:${JAVAPATH}/lib_java_dbsrdr/dbsrdr
 
-CLASSPATH=.:${INSTALLDIR}/classes:${JAVA_LIB}:${COMMON_CLASSPATH}
+CLASSPATH=.:${JAVA_LIB}:${COMMON_CLASSPATH}
 
 export JAVARUNTIMEOPTS JAVA_LIB CLASSPATH
 
@@ -87,7 +88,7 @@ export JAVARUNTIMEOPTS JAVA_LIB CLASSPATH
 ###########################################################################
 
 #  Java applications
-DLA_LOADER=org.jax.mgi.app.seqdeleter.SeqDeleter
+DLA_LOADER=org.jax.mgi.shr.dla.loader.seq.SeqDeleter
 DLA_START=org.jax.mgi.shr.dla.loader.DLAStart
 
 export DLA_LOADER DLA_START 
