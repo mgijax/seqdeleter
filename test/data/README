@@ -1,0 +1,22 @@
+The data files in this directory were contrived to test the seqdeleter
+
+gbdel.txt.gz - contains 4 records designed to test the genbank deleter 
+Seqid		Status in Database	Status after deleter run
+_____________________________________________________________
+AB000096	ACTIVE			DELETED
+V00843		SPLIT			unchanged
+M15131		DELETED			unchanged
+A06105		Not Loaded		DELETED
+
+release9.removed-records - contains four records to test refseq deleter
+Seqid           Status in Database      Status after deleter run
+_____________________________________________________________
+NP_666882        ACTIVE                  DELETED
+XP_359230        SPLIT                   unchanged
+XP_358168        DELETED                 unchanged
+NM_000023        Not Loaded              DELETED
+
+To use these test files you must first update each seqid with
+a seqid that has the proper status in the database. M15131 and
+XP_358168 were articially changed to status 'DELETED' for testing
+purposes. The other's may change their status over time.
