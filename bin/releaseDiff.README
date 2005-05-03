@@ -34,15 +34,15 @@ created. These files must have their header and footer removed as well as
 a leading and trailing spaces. You can do this with vi for refseq, but genbank is too large
 
 Do this to remove leading/trailing whitespace, header and footer:
-awk '{sub(/^[ \t]+/, ""); print}' gb_seqIdQuery.sql.rpt > gb_seqIdQuery.sql.rpt.leading
-awk '{sub(/[ \t]+$/, "");print}' gb_seqIdQuery.sql.rpt.leading > gb_seqIdQuery.sql.rpt.trailing
-sed -n '<firstLineToSave>,<lastLineToSave>p' gb_seqIdQuery.sql.rpt.trailing > gb_seqIdQuery.sql.rpt.new
-mv gb_seqIdQuery.sql.rpt.new gb_seqIdQuery.sql.rpt
+awk '{sub(/^[ \t]+/, ""); print}' genbank_seqIdQuery.sql.rpt > genbank_seqIdQuery.sql.rpt.leading
+awk '{sub(/[ \t]+$/, "");print}' genbank_seqIdQuery.sql.rpt.leading > genbank_seqIdQuery.sql.rpt.trailing
+sed -n '<firstLineToSave>,<lastLineToSave>p' genbank_seqIdQuery.sql.rpt.trailing > genbank_seqIdQuery.sql.rpt.new
+mv genbank_seqIdQuery.sql.rpt.new genbank_seqIdQuery.sql.rpt
 
 3) run createReleaseDeletes.sh to create a diff file of sequences
    in MGI that are not in the release index file
 e.g. genbank:
-createReleaseDeletes.sh gbacc.idx.seqid gb_seqIdQuery.sql.rpt genbank
+createReleaseDeletes.sh gbacc.idx.seqid genbank_seqIdQuery.sql.rpt genbank
 e.g. refseq
 createReleaseDeletes.sh RefSeq-release9.catalog.seqid refseq_seqIdQuery.sql.rpt refseq
 
