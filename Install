@@ -43,9 +43,9 @@ COMMON_CONFIG=seqdeleter_common.config
 if [ -r ${GB_CONFIG} ]
 then
     echo "Source ${GB_CONFIG}"
-    . ${SP_CONFIG}
+    . ${GB_CONFIG}
 else
-    echo "Cannot source configuration file: ${SP_CONFIG}"
+    echo "Cannot source configuration file: ${GB_CONFIG}"
     installFailed
 fi
 
@@ -70,7 +70,7 @@ then
 fi
 
 #
-# run DLAInstall for spseqload
+# run DLAInstall for gbseqdeleter
 #
 echo 'running DLAINSTALL'
 ${DLAINSTALL} ${DEV}
