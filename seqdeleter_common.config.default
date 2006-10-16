@@ -4,8 +4,6 @@
 #
 #  This file sets up environment variables that are common to
 #  all seqdeleters
-#  IMPORTANT: This file is dependent on FILEDIR set in both gbseqdeleter.config
-#             and refseqdeleter.config
 ###########################################################################
 #
 #  If the MGICONFIG environment variable does not have a local override,
@@ -17,7 +15,14 @@ then
     export MGICONFIG
 fi
 
-. ${MGICONFIG}/master.config.sh
+#
+#  Establish master configuration file name, we pass this to java
+#
+CONFIG_MASTER=${MGICONFIG}/master.config.sh
+
+export CONFIG_MASTER
+
+. ${CONFIG_MASTER}
 
 ###########################################################################
 #
@@ -54,19 +59,6 @@ export JAVARUNTIMEOPTS JAVA_LIB CLASSPATH
 ###########################################################################
 
 #
-# output file settings
-#
-
-# Full path the the logs, reports, and archive directories
-# FILEDIR defined in specific config file
-LOGDIR=${FILEDIR}/logs
-RPTDIR=${FILEDIR}/reports
-OUTPUTDIR=${FILEDIR}/output
-ARCHIVEDIR=${FILEDIR}/archive
-
-export LOGDIR RPTDIR OUTPUTDIR ARCHIVEDIR
-
-#
 # input file settings
 #
 
@@ -80,7 +72,7 @@ export INFILE_NAME
 # general settings
 #
 
-# Java applications
+# Java classes
 DLA_LOADER=org.jax.mgi.shr.dla.loader.seq.SeqDeleter
 DLA_START=org.jax.mgi.shr.dla.loader.DLAStart
 
@@ -98,14 +90,6 @@ DLA_QC_STREAM=org.jax.mgi.shr.dbutils.dao.BCP_Stream
 DLA_DB_PREFIX=MGD
 
 export DLA_LOAD_STREAM DLA_QC_STREAM DLA_DB_PREFIX
-
-#  Complete path name of the log files
-LOG_PROC=${LOGDIR}/seqdeleter.proc.log
-LOG_DIAG=${LOGDIR}/seqdeleter.diag.log
-LOG_CUR=${LOGDIR}/seqdeleter.cur.log
-LOG_VAL=${LOGDIR}/seqdeleter.val.log
-
-export LOG_PROC LOG_DIAG LOG_CUR LOG_VAL
 
 # Send debug messages to the diagnostic log
 LOG_DEBUG=false
@@ -174,17 +158,6 @@ SCP_OUTFILENAME=deletes
 export SCP_PATH SCP_PREVENT_EXECUTE SCP_OK_TO_OVERWRITE
 export SCP_FILENAME SCP_SUFFIX SCP_OUTFILENAME SCP_OUTSUFFIX
 
-###########################################################################
-#
-#  MISCELLANEOUS SETTINGS
-#
-###########################################################################
-
-#  Recipient list for mailing the log files (comma-separated)
-MAIL_LOG_CUR=""
-
-export MAIL_LOG_CUR
-
 ##################################################################
 # repeat file processing used when in incremental mode
 ##################################################################
@@ -195,4 +168,20 @@ export MAIL_LOG_CUR
 # full path to repeat file
 SEQ_REPEAT_FILE=${OUTPUTDIR}/repeats.out
 
-export SEQ_REPEAT_FILE 
+export SEQ_REPEAT_FILE
+
+###########################################################################
+#
+#  MISCELLANEOUS SETTINGS
+#
+###########################################################################
+
+#  Installation directory for seqdeleter
+INSTALLDIR=${DATALOAD}/seqdeleter
+
+export INSTALLDIR
+
+#  Recipient list for mailing the log files (comma-separated)
+MAIL_LOG_CUR=""
+
+export MAIL_LOG_CUR
