@@ -1,26 +1,21 @@
 #!/bin/csh
  
 #
-# Template for SQL report
-#
-# Notes:
-#	- all public reports require a header and trailer
-#	- all private reports require a header
+# Report seqids for the given logical db
 #
 # Usage:
-#	seqIdQuery.sql PROD_MGI mgd <logicalDBKey>
+#	seqIdQuery.sql PROD_MGI mgd <logicalDBKey> <output prefix>
 #
 
 
-setenv DSQUERY $1
-setenv MGD $2
+setenv DBSERVER $1
+setenv DBNAME $2
 setenv LOGICALDB $3
 setenv OUTPUT_PREFIX $4
-#/mgi/software/customSQL/bin/header.sh $0
 
-isql -S$DSQUERY -Umgd_public -Pmgdpub -w200 <<END >> ${OUTPUT_PREFIX}_$0.rpt
+isql -S$DBSERVER -Umgd_public -Pmgdpub -w200 <<END >> ${OUTPUT_PREFIX}_$0.rpt
 
-use $MGD
+use $DBNAME
 go
 select accid
 from ACC_Accession

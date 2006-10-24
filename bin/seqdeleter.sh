@@ -1,8 +1,5 @@
 #!/bin/sh
 #
-#  $Header
-#  $Name
-#
 #  seqdeleter.sh
 #
 ###########################################################################
@@ -18,9 +15,10 @@
 #
 #  Inputs:
 #
-#      - Common configuration file (/usr/local/mgi/etc/common.config.sh)
+#      - Common configuration file -
+#               /usr/local/mgi/live/mgiconfig/master.config.sh
 #      - Common load configuration file (seqdeleter_common.config)
-#      - Configuration file (*seqdeleter.config)
+#      - Configuration file - gbseqdeleter.config or refseqdeleter.config
 #      - delete input file
 #
 #  Outputs:
@@ -68,18 +66,15 @@ fi
 #
 #  Establish the configuration file names.
 #
-CONFIG_COMMON=`pwd`/common.config.sh
-CONFIG_LOAD_COMMON=`pwd`/seqdeleter_common.config
 CONFIG_LOAD=`pwd`/$1
-
-echo ${CONFIG_LOAD}
+CONFIG_LOAD_COMMON=`pwd`/seqdeleter_common.config
 
 #
 #  Make sure the configuration files are readable.
 #
-if [ ! -r ${CONFIG_COMMON} ]
+if [ ! -r ${CONFIG_LOAD} ]
 then
-    echo "Cannot read configuration file: ${CONFIG_COMMON}" | tee -a ${LOG}
+    echo "Cannot read configuration file: ${CONFIG_LOAD}" | tee -a ${LOG}
     exit 1
 fi
 
@@ -89,18 +84,21 @@ then
     exit 1
 fi
 
-if [ ! -r ${CONFIG_LOAD} ]
-then
-    echo "Cannot read configuration file: ${CONFIG_LOAD}" | tee -a ${LOG}
-    exit 1
-fi
-
 #
 # source config files - order is important
 #
-. $CONFIG_COMMON
-. $CONFIG_LOAD
 . ${CONFIG_LOAD_COMMON}
+. $CONFIG_LOAD
+
+#
+#  Make sure the master configuration file is readable
+#
+
+if [ ! -r ${CONFIG_MASTER} ]
+then
+    echo "Cannot read configuration file: ${CONFIG_MASTER}"
+    exit 1
+fi
 
 echo "javaruntime:${JAVARUNTIMEOPTS}"
 echo "classpath:${CLASSPATH}"
@@ -131,32 +129,15 @@ if [ "${APP_INFILES}" = "" ]
 then
      # set STAT for endJobStream.py called from postload in shutDown
     STAT=1
-    echo "APP_INFILES not defined. Return status: ${STAT}" | \
-        tee -a ${LOG_DIAG}
-    shutDown
-    exit 1
+    checkStatus ${STAT} "APP_INFILES not defined"
 fi
 
-#
-#  Function that performs cleanup tasks for the job stream prior to
-#  termination.
-#
-shutDown ()
-{
-    #
-    # report location of logs
-    #
-    echo "\nSee logs at ${LOGDIR}\n" >> ${LOG_PROC}
-
-    #
-    # call DLA library function
-    #
-    postload
-
-}
-
 ##################################################################
+##################################################################
+#
 # main
+#
+##################################################################
 ##################################################################
 
 #
@@ -178,27 +159,20 @@ echo "Running seqdeleter" | tee -a ${LOG_DIAG} ${LOG_PROC}
 
 
 # log time and input files to process
-echo "\n`date`" >> ${LOG_PROC}
+echo "\n`date`" >> ${LOG_DIAG} ${LOG_PROC}
 
 echo "Processing input file ${APP_INFILES}" | \
-    tee -a ${LOG_DIAG} ${LOG_PROC}
+    >> ${LOG_DIAG} ${LOG_PROC}
 
 # run the load
 
 ${APP_CAT_METHOD}  ${APP_INFILES}  | \
 ${JAVA} ${JAVARUNTIMEOPTS} -classpath ${CLASSPATH} \
--DCONFIG=${CONFIG_COMMON},${CONFIG_LOAD},${CONFIG_LOAD_COMMON} \
+-DCONFIG=${CONFIG_MASTER},${CONFIG_LOAD_COMMON},${CONFIG_LOAD} \
 -DJOBKEY=${JOBKEY} ${DLA_START}
 
 STAT=$?
-if [ ${STAT} -ne 0 ]
-then
-    echo "seqdeleter processing failed.  \
-        Return status: ${STAT}" >> ${LOG_PROC}
-    shutDown
-    exit 1
-fi
-echo "seqdeleter completed successfully" >> ${LOG_PROC}
+checkStatus ${STAT} ${SEQDELETER}
 
 #
 # run postload cleanup and email logs
@@ -206,28 +180,3 @@ echo "seqdeleter completed successfully" >> ${LOG_PROC}
 shutDown
 
 exit 0
-
-$Log
-
-###########################################################################
-#
-# Warranty Disclaimer and Copyright Notice
-#
-#  THE JACKSON LABORATORY MAKES NO REPRESENTATION ABOUT THE SUITABILITY OR
-#  ACCURACY OF THIS SOFTWARE OR DATA FOR ANY PURPOSE, AND MAKES NO WARRANTIES,
-#  EITHER EXPRESS OR IMPLIED, INCLUDING MERCHANTABILITY AND FITNESS FOR A
-#  PARTICULAR PURPOSE OR THAT THE USE OF THIS SOFTWARE OR DATA WILL NOT
-#  INFRINGE ANY THIRD PARTY PATENTS, COPYRIGHTS, TRADEMARKS, OR OTHER RIGHTS.
-#  THE SOFTWARE AND DATA ARE PROVIDED "AS IS".
-#
-#  This software and data are provided to enhance knowledge and encourage
-#  progress in the scientific community and are to be used only for research
-#  and educational purposes.  Any reproduction or use for commercial purpose
-#  is prohibited without the prior express written permission of The Jackson
-#  Laboratory.
-#
-# Copyright \251 1996, 1999, 2002, 2003 by The Jackson Laboratory
-#
-# All Rights Reserved
-#
-###########################################################################

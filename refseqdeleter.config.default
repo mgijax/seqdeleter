@@ -7,27 +7,38 @@
 ###########################################################################
 # The interpreter class for  refseq deletes
 SEQ_INTERPRETER=org.jax.mgi.shr.dla.input.refseq.RefSeqDeleterInterpreter
-# for processing single seqid per line file (initial diff)
-#SEQ_INTERPRETER=org.jax.mgi.shr.dla.input.SeqIdInterpreter
 
-# Full path to dir containing input file(s)
-INPUTDIR=/data/downloads/ftp.ncbi.nih.gov/refseq/refseq_deletes
-# initial diff
-#INPUTDIR=/home/sc/jsam/seqdeleter/bin
+export SEQ_INTERPRETER
 
 # Full path the the logs, reports, and archive directories
-FILEDIR=/data/loads/genbank/refseqdeleter
+FILEDIR=${DATALOADSOUTPUT}/genbank/refseqdeleter
 
-export SEQ_INTERPRETER INPUTDIR FILEDIR 
+export FILEDIR
+
+# Full path the the logs, reports, and archive directories
+LOGDIR=${FILEDIR}/logs
+RPTDIR=${FILEDIR}/reports
+OUTPUTDIR=${FILEDIR}/output
+ARCHIVEDIR=${FILEDIR}/archive
+
+export LOGDIR RPTDIR OUTPUTDIR ARCHIVEDIR
+
+#  Complete path name of the log files
+LOG_PROC=${LOGDIR}/refseqdeleter.proc.log
+LOG_DIAG=${LOGDIR}/refseqdeleter.diag.log
+LOG_CUR=${LOGDIR}/refseqdeleter.cur.log
+LOG_VAL=${LOGDIR}/refseqdeleter.val.log
+
+export LOG_PROC LOG_DIAG LOG_CUR LOG_VAL
+
+# Full path to dir containing input file(s)
+INPUTDIR=${DATADOWNLOADS}/ftp.ncbi.nih.gov/refseq/refseq_deletes
 
 # how files are piped to the application
-#APP_CAT_METHOD="/usr/local/bin/gunzip -c"
 APP_CAT_METHOD=/usr/bin/cat
 
 # full path to input file(s)
 APP_INFILES=${INPUTDIR}/release*.removed-records
-# initial diff
-#APP_INFILES=${INPUTDIR}/refseq_MGI_todelete.txt
 
 export APP_CAT_METHOD APP_INFILES
 
