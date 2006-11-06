@@ -26,17 +26,6 @@ export CONFIG_MASTER
 
 ###########################################################################
 #
-#  GENERAL SETTINGS
-#
-###########################################################################
-
-#  Installation directory for seqdeleter
-INSTALLDIR=${DATALOAD}/seqdeleter
-
-export INSTALLDIR 
-
-###########################################################################
-#
 #  JAVA SETTINGS
 #
 ###########################################################################
@@ -177,7 +166,7 @@ export SEQ_REPEAT_FILE
 ###########################################################################
 
 #  Installation directory for seqdeleter
-INSTALLDIR=${DATALOAD}/seqdeleter
+INSTALLDIR=${SEQDELETER}
 
 export INSTALLDIR
 
