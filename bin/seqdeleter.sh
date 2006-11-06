@@ -161,7 +161,7 @@ echo "Running seqdeleter" | tee -a ${LOG_DIAG} ${LOG_PROC}
 # log time and input files to process
 echo "\n`date`" >> ${LOG_DIAG} ${LOG_PROC}
 
-echo "Processing input file ${APP_INFILES}" | \
+echo "Processing input file ${APP_INFILES}" \
     >> ${LOG_DIAG} ${LOG_PROC}
 
 # run the load
