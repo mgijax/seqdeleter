@@ -35,10 +35,10 @@ export LOG_PROC LOG_DIAG LOG_CUR LOG_VAL
 INPUTDIR=${DATADOWNLOADS}/ftp.ncbi.nih.gov/refseq/refseq_deletes
 
 # how files are piped to the application
-APP_CAT_METHOD=/usr/bin/cat
+APP_CAT_METHOD="/usr/local/bin/gunzip -c"
 
 # full path to input file(s)
-APP_INFILES=${INPUTDIR}/release*.removed-records
+APP_INFILES=${INPUTDIR}/release*.removed-records.gz
 
 export APP_CAT_METHOD APP_INFILES
 

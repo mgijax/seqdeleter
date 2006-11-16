@@ -1,3 +1,9 @@
+TAG: seqdeleter-3-5-1-3
+DATE: 11/16/2006
+STAFF: sc
+CHANGES: refseqload.config.default - CAT method is now gunzip -c and 
+  APP_INFILES=${INPUTDIR}/release*.removed-records.gz
+
 TAG: seqdeleter-3-5-1-2
 DATE: 11/06/2006
 STAFF: sc
