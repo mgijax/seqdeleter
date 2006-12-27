@@ -1,3 +1,10 @@
+TAG: seqdeleter-3-5-1-5
+DATE: 12/27/2006
+STAFF: sc
+CHANGES:tr8067
+1) *config-default - updated with path to new files, removed repeat processing
+    vars, added batch size var
+
 TAG: seqdeleter-3-5-1-4
 DATE: 11/08/2006
 STAFF: sc
