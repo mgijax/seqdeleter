@@ -1,3 +1,4 @@
+TAG: seqdeleter-tr9231-2
 TAG: seqdeleter-tr9231-1
 DATE: 09/03/2008
 STAFF: sc
@@ -10,6 +11,7 @@ CHANGES:
 3) gbseqdeleter.config.default Added: 
    PRESET_SEQ_STATUS=false
    LOGICALDB_KEY=19
+4) seqdeleter.sh - calls updateSQL.sh
 
 TAG: seqdeleter-tr9231-BP
 DATE: 09/03/2008
