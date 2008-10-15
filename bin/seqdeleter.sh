@@ -152,11 +152,20 @@ preload ${OUTPUTDIR}
 cleanDir ${OUTPUTDIR} ${RPTDIR}
 
 #
+# Check configuration to see if we need to pre-status sequences
+#
+if [ ${PRESET_SEQ_STATUS} = 'true' ]
+then
+    echo "Updating all sequences for ${SEQ_LOGICALDB} to ACTIVE" >> ${LOG_DIAG} 
+    ${SEQDELETER}/bin/updateSQL.sh
+    STAT=$?
+    checkStatus ${STAT} ${SEQDELETER}/bin/updateSQL.sh
+fi
+
+#
 # Run the seqdeleter
 #
-
-echo "Running seqdeleter" | tee -a ${LOG_DIAG} ${LOG_PROC}
-
+echo "Running seqdeleter" >> ${LOG_DIAG} ${LOG_PROC}
 
 # log time and input files to process
 echo "\n`date`" >> ${LOG_DIAG} ${LOG_PROC}
