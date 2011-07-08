@@ -100,6 +100,18 @@ then
     exit 1
 fi
 
+#
+# Make sure the input file exists (regular file or symbolic link).
+#
+for f in ${APP_INFILES}
+do
+    if [ "`ls -L ${f} 2>/dev/null`" = "" ]
+    then
+	echo "Missing input file: ${f}" | tee -a ${LOG}
+	exit 1
+    fi
+done
+
 echo "javaruntime:${JAVARUNTIMEOPTS}"
 echo "classpath:${CLASSPATH}"
 echo "dbserver:${MGD_DBSERVER}"

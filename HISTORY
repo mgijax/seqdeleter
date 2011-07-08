@@ -1,3 +1,10 @@
+TAG: seqdeleter-4-4-1-1
+DATE: 07/08/2011
+STAFF: sc
+CHANGES: TR10754
+1) Added gbseqdeleter.tr10754.config
+2) seqdeleter.sh - added checking for existence of input file
+
 TAG: seqdeleter-4-1-2-1
 DATE: 10/15/2008
 STAFF: sc
