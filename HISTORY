@@ -1,3 +1,9 @@
+TAG: seqdeleter-4-4-1-2
+DATE: 11/22/2011
+STAFF: lec
+CHANGES: TR10754
+1) added -f to bin/seqIdQuery.sql
+
 TAG: seqdeleter-4-4-1-1
 DATE: 07/08/2011
 STAFF: sc

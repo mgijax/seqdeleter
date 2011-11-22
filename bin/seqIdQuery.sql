@@ -1,4 +1,4 @@
-#!/bin/csh
+#!/bin/csh -f
  
 #
 # Report seqids for the given logical db
