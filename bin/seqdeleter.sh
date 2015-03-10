@@ -180,7 +180,8 @@ fi
 echo "Running seqdeleter" >> ${LOG_DIAG} ${LOG_PROC}
 
 # log time and input files to process
-echo "\n`date`" >> ${LOG_DIAG} ${LOG_PROC}
+echo "" >> ${LOG_DIAG} ${LOG_PROC}
+echo "`date`" >> ${LOG_DIAG} ${LOG_PROC}
 
 echo "Processing input file ${APP_INFILES}" \
     >> ${LOG_DIAG} ${LOG_PROC}
