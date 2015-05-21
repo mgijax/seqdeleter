@@ -1,9 +1,12 @@
+TAG: seqdeleter-5-2-2-2
 TAG: seqdeleter-5-2-2-1
 DATE: 05/21/2015
 STAFF: sc
 CHANGES: TR11750 - Infrastructure II
-1) seqloader.config.default - remove full path to gzip
+1) gbseqdeleter.config.default - remove full path to gzip
         so runs on solaris and linux
+2) seqdeleter_common.config.default upped memory to 2G
+    JAVARUNTIMEOPTS="-Xms2G -Xmx2G"
 
 TAG: seqdeleter-4-4-1-2
 DATE: 11/22/2011
