@@ -1,3 +1,10 @@
+TAG: seqdeleter-5-2-2-1
+DATE: 05/21/2015
+STAFF: sc
+CHANGES: TR11750 - Infrastructure II
+1) seqloader.config.default - remove full path to gzip
+        so runs on solaris and linux
+
 TAG: seqdeleter-4-4-1-2
 DATE: 11/22/2011
 STAFF: lec
