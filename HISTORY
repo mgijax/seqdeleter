@@ -1,3 +1,10 @@
+TAG: seqdeleter-tr11750-1
+DATE: 06/18/2015
+STAFF: sc
+CHANGES:
+1) removed: createReleaseDeletes.sh R releaseDiff.README R seqIdQuery.sql
+2) updateSQL.sh - updated to postgres 
+
 TAG: seqdeleter-tr11750-BP
 DATE: 06/18/2015
 STAFF: sc
