@@ -1,3 +1,10 @@
+TAG: seqdeleter-tr11750-2
+DATE: 06/26/2015
+STAFF: sc
+CHANGES:
+1. updateSQL.sh: PG_DBSERVER . MGD_DBSERVER
+2. updateSQL.sh: PG_DBNAME . MGD_DBNAME
+
 TAG: seqdeleter-tr11750-1
 DATE: 06/18/2015
 STAFF: sc

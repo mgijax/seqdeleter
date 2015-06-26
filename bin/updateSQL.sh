@@ -2,7 +2,7 @@
 
 echo "Updating sequence status to 'ACTIVE'" | tee -a ${LOG_PROC} >> ${LOG_PROC} 2>&1
 
-cat - <<EOSQL | psql -h${PG_DBSERVER} -d${PG_DBNAME} -U mgd_dbo -e >> ${LOG_DIAG} 2>&1
+cat - <<EOSQL | psql -h${MGD_DBSERVER} -d${MGD_DBNAME} -U mgd_dbo -e >> ${LOG_DIAG} 2>&1
 
 select s._Sequence_key
 into  temp seqsToUpdate
